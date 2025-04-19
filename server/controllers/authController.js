@@ -103,9 +103,55 @@ const getProfile = (req, res)=>{
     }
 }
 
+// Search users by username (partial match)
+const searchUsers = async (req, res) => {
+    const { query } = req.query;
+    if (!query || query.trim() === '') {
+      return res.json([]);
+    }
+  
+    try {
+      const users = await User.find({
+        userName: { $regex: query, $options: 'i' } // case-insensitive partial match
+      }).select('name userName email'); // don't return password
+  
+      res.json(users);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Search failed' });
+    }
+  }
+
+  const updateProfile = async (req, res) => {
+    const { token } = req.cookies
+    if (!token) return res.status(401).json({ error: 'Unauthorized' })
+  
+    try {
+      const { name, userName, email } = req.body
+  
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      const user = await User.findByIdAndUpdate(decoded.id, {
+        name, userName, email
+      }, { new: true })
+  
+      res.json(user)
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ error: 'Failed to update profile' })
+    }
+  }  
+  
+  const logoutUser = (req, res) => {
+    res.clearCookie('token').json({ message: 'Logged out successfully' })
+  }
+  
+
 module.exports = {
     test,
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    searchUsers,
+    updateProfile,
+    logoutUser
 }

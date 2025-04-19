@@ -82,3 +82,21 @@ form button:hover {
 h1, h2 {
   text-align: center;
 }
+
+ul {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+form button[type="button"] {
+  background-color: #e84118;
+  color: white;
+}
+form button[type="button"]:hover {
+  background-color: #c23616;
+}
