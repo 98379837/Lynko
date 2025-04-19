@@ -1,8 +1,8 @@
-import React from 'react'
-
 function Home() {
   return (
-    <div>Home</div>
+    <div className="center-container">
+      <h1>Welcome to Lynko 👋</h1>
+    </div>
   )
 }
 

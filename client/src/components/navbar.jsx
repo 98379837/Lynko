@@ -1,13 +1,13 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-function navbar() {
+function Navbar() {
   return (
-    <>
-    <Link to='/home'>Home</Link>
-    <Link to='/registration'>Register</Link>
-    <Link to='/login'>Log in</Link>
-    </>
+    <nav className="navbar">
+      <Link to="/home">Home</Link>
+      <Link to="/registration">Register</Link>
+      <Link to="/login">Log In</Link>
+    </nav>
   )
 }
 
-export default navbar
+export default Navbar
